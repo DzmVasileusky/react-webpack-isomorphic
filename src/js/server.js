@@ -5,10 +5,12 @@ import App from './app/components/App.jsx';
 
 const app = express();
 
-app.use((req, res) => {
-    console.log(req);
+app.set('view engine', 'pug');
 
-    return res.end(renderHTML(componentHTML));
+app.use((req, res) => {
+    const appComponentHTML = ReactDom.renderToString(<App />);
+
+    return res.render('index', { appComponentHTML: appComponentHTML });
 });
 
 const PORT = process.env.PORT || 3001;
